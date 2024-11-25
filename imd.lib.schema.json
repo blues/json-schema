@@ -1,0 +1,182 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/json-schema/master/imd.lib.schema.json",
+    "title": "Notecard Library Manifest",
+    "description": "JSON description of the Notecard library configuration",
+    "type": "object",
+    "properties": {
+        "manifestVersion": {
+            "description": "The version of the JSON schema that defines manifest file",
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+        },
+        "notecard": {
+            "description": "Notecard configuration",
+            "type": "object",
+            "properties": {
+                "connectivity": {
+                    "description": "Connection management configuration",
+                    "type": "object",
+                    "properties": {
+                        "strategy": {
+                            "description": "The synchronization strategy",
+                            "enum": [
+                                "continuous",
+                                "periodic",
+                                "minimum",
+                                "off"
+                            ]
+                        },
+                        "wifi": {
+                            "description": "Wi-Fi configuration",
+                            "type": "object",
+                            "properties": {
+                                "ssid": {
+                                    "description": "Service Set Identifier of the Wi-Fi access point",
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "description": "The network password of the Wi-Fi access point",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "ssid"
+                            ]
+                        }
+                    }
+                },
+                "contactInfo": {
+                    "description": "Information regarding the Notecard maintainer",
+                    "type": "object",
+                    "properties": {
+                        "email": {
+                            "description": "Email address of the Notecard maintainer",
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "Name of the Notecard maintainer",
+                            "type": "string"
+                        },
+                        "org": {
+                            "description": "Organization name of the Notecard maintainer",
+                            "type": "string"
+                        },
+                        "role": {
+                            "description": "Role of the Notecard maintainer",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "email"
+                    ]
+                },
+                "power": {
+                    "description": "The power configuration for the Notecard",
+                    "type": "object",
+                    "properties": {
+                        "battery": {
+                            "chemistry": {
+                                "description": "The chemical composition of the battery",
+                                "enum": [
+                                    "alkaline",
+                                    "l91",
+                                    "lic",
+                                    "lipo",
+                                    "tad"
+                                ]
+                            },
+                            "required": [
+                                "chemistry"
+                            ]
+                        },
+                        "mainsDetection": {
+                            "description": "Mains power detection via USB",
+                            "type": "object",
+                            "properties": {
+                                "alert": {
+                                    "description": "Queue Note when power drops",
+                                    "type": "boolean"
+                                },
+                                "sync": {
+                                    "description": "Send Note immediately",
+                                    "type": "boolean"
+                                }
+                            },
+                            "dependentRequired": {
+                                "sync": [
+                                    "alert"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "serialNumber": {
+                    "description": "The user-defined serial number of the device",
+                    "type": "string"
+                }
+            }
+        },
+        "notehub": {
+            "description": "Notehub Configuration",
+            "type": "object",
+            "properties": {
+                "productUid": {
+                    "description": "The associated Notehub product",
+                    "type": "string"
+                },
+                "syncPolicy": {
+                    "description": "The strategy for Notehub synchronization",
+                    "type": "object",
+                    "properties": {
+                        "inbound": {
+                            "description": "The policy for synchronizing inbound Notes",
+                            "type": "object",
+                            "properties": {
+                                "instant": {
+                                    "description": "Synchronize immediately",
+                                    "type": "boolean"
+                                },
+                                "pollFreq_min": {
+                                    "description": "The max wait time to sync inbound data from Notehub",
+                                    "type": "integer"
+                                },
+                                "voltageVariable": {
+                                    "description": "Overrides pollFreqMin with a voltage-variable values",
+                                    "type": "string",
+                                    "pattern": "^usb:\\d+;(\\d+|high:\\d+;normal:\\d+;low:\\d+;dead:\\d+)$"
+                                }
+                            }
+                        },
+                        "outbound": {
+                            "description": "The policy for synchronizing outbound Notes",
+                            "type": "object",
+                            "properties": {
+                                "instant": {
+                                    "description": "Synchronize immediately",
+                                    "type": "boolean"
+                                },
+                                "pollFreq_min": {
+                                    "description": "The max wait time to sync outbound data from Notecard",
+                                    "type": "integer"
+                                },
+                                "voltageVariable": {
+                                    "description": "Overrides pollFreqMin with a voltage-variable values",
+                                    "type": "string",
+                                    "pattern": "^usb:\\d+;(\\d+|high:\\d+;normal:\\d+;low:\\d+;dead:\\d+)$"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "required": [
+                "productUid"
+            ]
+        }
+    },
+    "required": [
+        "manifestVersion",
+        "notehub"
+    ]
+}
