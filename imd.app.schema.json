@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/json-schema/master/imd.app.schema.json",
-    "title": "Notecard Library Manifest",
+    "title": "Notecard Application Manifest",
     "description": "JSON manifest of a Notecard application",
     "type": "object",
     "properties": {
@@ -34,9 +34,9 @@
                                     "string"
                                 ]
                             },
-                            "unit": {
-                                "description": "The unit of the data",
-                                "type": "string"
+                            "precision": {
+                                "description": "The decimal precision of the numeric data",
+                                "type": "number"
                             },
                             "minValue": {
                                 "description": "The minimum value of the numeric data",
@@ -45,6 +45,10 @@
                             "maxValue": {
                                 "description": "The maximum value of the numeric data",
                                 "type": "number"
+                            },
+                            "unit": {
+                                "description": "The unit of the data",
+                                "type": "string"
                             }
                         },
                         "required": [
