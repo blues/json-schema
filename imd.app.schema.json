@@ -14,49 +14,6 @@
             "description": "Application configuration",
             "type": "object",
             "properties": {
-                "dataPoints": {
-                    "description": "The array of data points",
-                    "type": "array",
-                    "items": {
-                        "description": "Data description",
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "description": "The name of the data",
-                                "type": "string"
-                            },
-                            "type": {
-                                "description": "The data type of the data",
-                                "enum": [
-                                    "boolean",
-                                    "integer",
-                                    "number",
-                                    "string"
-                                ]
-                            },
-                            "precision": {
-                                "description": "The decimal precision of the numeric data",
-                                "type": "number"
-                            },
-                            "minValue": {
-                                "description": "The minimum value of the numeric data",
-                                "type": "number"
-                            },
-                            "maxValue": {
-                                "description": "The maximum value of the numeric data",
-                                "type": "number"
-                            },
-                            "unit": {
-                                "description": "The unit of the data",
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "name",
-                            "type"
-                        ]
-                    }
-                },
                 "main": {
                     "description": "The features of the main loop of the application",
                     "type": "object",
