@@ -156,6 +156,10 @@
                             "unit": {
                                 "description": "The unit of the data",
                                 "type": "string"
+                            },
+                            "pollingInterval_ms": {
+                                "description": "The interval used for polling the data",
+                                "type": "integer"
                             }
                         },
                         "required": [
