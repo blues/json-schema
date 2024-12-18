@@ -42,32 +42,6 @@
             "description": "The dependencies required by the Notecard application",
             "type": "object",
             "properties": {
-                "externalLibraries": {
-                    "description": "The external libraries required by the Notecard application",
-                    "type": "array",
-                    "items": {
-                        "description": "External library information",
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "description": "The name of the external library",
-                                "type": "string"
-                            },
-                            "version": {
-                                "description": "The version of the external library",
-                                "type": "string"
-                            },
-                            "header": {
-                                "description": "The header file to be referenced by the `#include` statement",
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "name",
-                            "header"
-                        ]
-                    }
-                },
                 "notecardLibrary": {
                     "$ref": "https://raw.githubusercontent.com/blues/json-schema/master/imd.lib.schema.json"
                 }

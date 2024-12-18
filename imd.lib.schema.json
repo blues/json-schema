@@ -132,6 +132,14 @@
                                 "description": "The name of the data",
                                 "type": "string"
                             },
+                            "sensor": {
+                                "description": "The sensor generating the data",
+                                "type": "string"
+                            },
+                            "impl": {
+                                "description": "The UUID of the code segment that implements the data retrieval",
+                                "type": "string"
+                            },
                             "type": {
                                 "description": "The data type of the data",
                                 "enum": [
@@ -162,6 +170,16 @@
                                 "type": "integer"
                             }
                         },
+                        "if": {
+                            "properties": {
+                                "type": { "const": "number" }
+                            }
+                        },
+                        "then": {
+                            "required": [
+                                "precision"
+                            ]
+                        },
                         "required": [
                             "name",
                             "type"
@@ -170,7 +188,8 @@
                 },
                 "productUid": {
                     "description": "The associated Notehub product",
-                    "type": "string"
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9._]*$"
                 },
                 "syncPolicy": {
                     "description": "The strategy for Notehub synchronization",
