@@ -138,7 +138,8 @@
                             },
                             "impl": {
                                 "description": "The UUID of the code segment that implements the data retrieval",
-                                "type": "string"
+                                "type": "string",
+                                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-5[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
                             },
                             "type": {
                                 "description": "The data type of the data",
