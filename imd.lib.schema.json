@@ -190,7 +190,7 @@
                 "productUid": {
                     "description": "The associated Notehub product",
                     "type": "string",
-                    "pattern": "^[a-z][a-z0-9._]*$"
+                    "pattern": "^[a-z][a-z0-9._+:]*$"
                 },
                 "syncPolicy": {
                     "description": "The strategy for Notehub synchronization",
