@@ -121,69 +121,188 @@
             "description": "Notehub Configuration",
             "type": "object",
             "properties": {
-                "dataPoints": {
-                    "description": "The array of data points",
+                "dataCollections": {
+                    "description": "The array of data collections",
                     "type": "array",
                     "items": {
-                        "description": "Data description",
+                        "description": "Data point collection",
                         "type": "object",
                         "properties": {
+                            "dataPoints": {
+                                "description": "The array of data points",
+                                "type": "array",
+                                "items": {
+                                    "description": "Data description",
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "description": "The name of the data",
+                                            "type": "string"
+                                        },
+                                        "sensor": {
+                                            "description": "The sensor generating the data",
+                                            "type": "string"
+                                        },
+                                        "impl": {
+                                            "description": "The UUID of the code segment that implements the data retrieval",
+                                            "type": "string",
+                                            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-5[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+                                        },
+                                        "type": {
+                                            "description": "The data type of the data",
+                                            "enum": [
+                                                "boolean",
+                                                "integer",
+                                                "number",
+                                                "string"
+                                            ]
+                                        },
+                                        "precision": {
+                                            "description": "The decimal precision of the numeric data",
+                                            "type": "number"
+                                        },
+                                        "minValue": {
+                                            "description": "The minimum value of the numeric data",
+                                            "type": "number"
+                                        },
+                                        "maxValue": {
+                                            "description": "The maximum value of the numeric data",
+                                            "type": "number"
+                                        },
+                                        "unit": {
+                                            "description": "The unit of the data",
+                                            "type": "string"
+                                        },
+                                        "pollingInterval_ms": {
+                                            "description": "The interval used for polling the data",
+                                            "type": "integer"
+                                        },
+                                        "template": {
+                                            "description": "The template constant used to describe the data",
+                                            "oneOf": [
+                                                {
+                                                    "enum": [
+                                                        "TBOOL",                      // boolean value
+                                                        "TINT8",                      // 1-byte signed integer
+                                                        "TINT16",                     // 2-byte signed integer
+                                                        "TINT24",                     // 3-byte signed integer
+                                                        "TINT32",                     // 4-byte signed integer
+                                                        "TINT64",                     // 8-byte signed integer (note-c support depends upon platform)
+                                                        "TUINT8",                     // 1-byte unsigned integer (requires Notecard firmware >= build 14444)
+                                                        "TUINT16",                    // 2-byte unsigned integer (requires Notecard firmware >= build 14444)
+                                                        "TUINT24",                    // 3-byte unsigned integer (requires Notecard firmware >= build 14444)
+                                                        "TUINT32",                    // 4-byte unsigned integer (requires Notecard firmware >= build 14444)
+                                                        "TFLOAT16",                   // 2-byte IEEE 754 floating point
+                                                        "TFLOAT32",                   // 4-byte IEEE 754 floating point (a.k.a. "float")
+                                                        "TFLOAT64",                   // 8-byte IEEE 754 floating point (a.k.a. "double")
+                                                        "TSTRINGV"                    // variable-length string
+                                                    ]
+                                                },
+                                                {
+                                                    "type": "string",
+                                                    "pattern": "^TSTRING\\(\\d+\\)$"  // UTF-8 text of N bytes maximum (fixed-length reserved buffer)
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "if": {
+                                        "properties": {
+                                            "type": { "const": "boolean" },
+                                            "template": { "type": "string" }
+                                        }
+                                    },
+                                    "then": {
+                                        "properties": {
+                                            "template": { "const": "TBOOL" }
+                                        }
+                                    },
+                                    "if": {
+                                        "properties": {
+                                            "type": { "const": "integer" },
+                                            "template": { "type": "string" }
+                                        }
+                                    },
+                                    "then": {
+                                        "properties": {
+                                            "template": {
+                                                "enum": [
+                                                    "TINT8",
+                                                    "TINT16",
+                                                    "TINT24",
+                                                    "TINT32",
+                                                    "TINT64",
+                                                    "TUINT8",
+                                                    "TUINT16",
+                                                    "TUINT24",
+                                                    "TUINT32"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "if": {
+                                        "properties": {
+                                            "type": { "const": "number" }
+                                        }
+                                    },
+                                    "then": {
+                                        "required": [
+                                            "precision"
+                                        ]
+                                    },
+                                    "if": {
+                                        "properties": {
+                                            "type": { "const": "number" },
+                                            "template": { "type": "string" }
+                                        }
+                                    },
+                                    "then": {
+                                        "properties": {
+                                            "template": {
+                                                "enum": [
+                                                    "TFLOAT16",
+                                                    "TFLOAT32",
+                                                    "TFLOAT64"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "if": {
+                                        "properties": {
+                                            "type": { "const": "string" },
+                                            "template": { "type": "string" }
+                                        }
+                                    },
+                                    "then": {
+                                        "properties": {
+                                            "template": {
+                                                "oneOf": [
+                                                    {
+                                                        "enum": [
+                                                            "TSTRINGV"
+                                                        ]
+                                                    },
+                                                    {
+                                                        "type": "string",
+                                                        "pattern": "^TSTRING\\(\\d+\\)$"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "name",
+                                        "type"
+                                    ]
+                                }
+                            },
                             "name": {
-                                "description": "The name of the data",
+                                "description": "The name of the data collection",
                                 "type": "string"
-                            },
-                            "sensor": {
-                                "description": "The sensor generating the data",
-                                "type": "string"
-                            },
-                            "impl": {
-                                "description": "The UUID of the code segment that implements the data retrieval",
-                                "type": "string",
-                                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-5[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
-                            },
-                            "type": {
-                                "description": "The data type of the data",
-                                "enum": [
-                                    "boolean",
-                                    "integer",
-                                    "number",
-                                    "string"
-                                ]
-                            },
-                            "precision": {
-                                "description": "The decimal precision of the numeric data",
-                                "type": "number"
-                            },
-                            "minValue": {
-                                "description": "The minimum value of the numeric data",
-                                "type": "number"
-                            },
-                            "maxValue": {
-                                "description": "The maximum value of the numeric data",
-                                "type": "number"
-                            },
-                            "unit": {
-                                "description": "The unit of the data",
-                                "type": "string"
-                            },
-                            "pollingInterval_ms": {
-                                "description": "The interval used for polling the data",
-                                "type": "integer"
                             }
-                        },
-                        "if": {
-                            "properties": {
-                                "type": { "const": "number" }
-                            }
-                        },
-                        "then": {
-                            "required": [
-                                "precision"
-                            ]
                         },
                         "required": [
-                            "name",
-                            "type"
+                            "dataPoints",
+                            "name"
                         ]
                     }
                 },
