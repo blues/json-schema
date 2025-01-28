@@ -1,14 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/blues/json-schema/master/imd.app.schema.json",
+    "$id": "https://raw.githubusercontent.com/blues/json-schema/master/imd.app.schema-0.1.1.json",
     "title": "Notecard Application Manifest",
     "description": "JSON manifest of a Notecard application",
     "type": "object",
     "properties": {
         "manifestVersion": {
-            "description": "The version of the JSON schema that defines manifest file",
+            "description": "The semantic version of this manifest schema.",
             "type": "string",
-            "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+            "const": "0.1.1"
         },
         "app": {
             "description": "Application configuration",
@@ -43,7 +43,7 @@
             "type": "object",
             "properties": {
                 "notecardLibrary": {
-                    "$ref": "https://raw.githubusercontent.com/blues/json-schema/master/imd.lib.schema.json"
+                    "$ref": "https://raw.githubusercontent.com/blues/json-schema/master/imd.lib.schema-0.1.1.json"
                 }
             },
             "required": [

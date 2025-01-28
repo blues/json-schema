@@ -1,14 +1,14 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/blues/json-schema/master/imd.lib.schema.json",
+    "$id": "https://raw.githubusercontent.com/blues/json-schema/master/imd.lib.schema-0.1.1.json",
     "title": "Notecard Library Manifest",
     "description": "JSON description of the Notecard library configuration",
     "type": "object",
     "properties": {
         "manifestVersion": {
-            "description": "The version of the JSON schema that defines manifest file",
+            "description": "The semantic version of this manifest schema.",
             "type": "string",
-            "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+            "const": "0.1.1"
         },
         "notecard": {
             "description": "Notecard configuration",
