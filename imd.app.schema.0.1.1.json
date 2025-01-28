@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/blues/json-schema/master/imd.app.schema.json",
+    "$id": "https://raw.githubusercontent.com/blues/json-schema/master/imd.app.schema.0.1.1.json",
     "title": "Notecard Application Manifest",
     "description": "JSON manifest of a Notecard application",
     "type": "object",
